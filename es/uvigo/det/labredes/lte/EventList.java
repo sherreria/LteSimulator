@@ -33,6 +33,7 @@ public class EventList {
      * @return true if the specified event is correctly added to the event list
      */
     public boolean addEvent (Event event) {
+	event.time = (double) Math.round(event.time * 1000000000) / 1000000000;
 	if (event.time < simul_time) {
 	    LteSimulator.printError("Trying to add an event with an invalid event time!");
 	}
