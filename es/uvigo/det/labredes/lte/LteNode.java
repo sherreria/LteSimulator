@@ -93,7 +93,8 @@ abstract public class LteNode {
      * @param event the PacketTransmissionEvent to be handled
      */
     public void handlePacketTransmissionEvent (PacketTransmissionEvent event) {
-        if (qsize == 0) {
+        if (qsize == 0 || ((PacketArrivalEvent) (queue.getNextEvent(false))).packet_id != event.packet_id) {
+	    event.print();
             LteSimulator.printError("Trying to handle an invalid packet transmission!");
         }
 	qsize--;
