@@ -59,7 +59,8 @@ public class ENB extends LteNode {
 	    LteSimulator.event_handler.addEvent(new StateTransitionEvent (event.time, lte_ue, "handleStateTransitionEvent", UEState.CONNECTING));
 	}
 	if (state == UEState.CONNECTED && (lte_ue.getPreviousState() != UEState.CONNECTED_DRX || qsize >= getQueueThreshold())) {
-	    LteSimulator.event_handler.addEvent(new PacketTransmissionEvent (event.time + LteSimulator.lte_psf, this, "handlePacketTransmissionEvent", event.packet_id));
+	    int pid = lte_ue.getPreviousState() != UEState.CONNECTED_DRX ? event.packet_id : ((PacketArrivalEvent) (queue.getNextEvent(false))).packet_id;
+	    LteSimulator.event_handler.addEvent(new PacketTransmissionEvent (event.time + LteSimulator.lte_psf, this, "handlePacketTransmissionEvent", pid));
 	    LteSimulator.event_handler.addEvent(new StateTransitionEvent (event.time, lte_ue, "handleStateTransitionEvent", UEState.CONNECTED_RX));
 	}
 	if (state == UEState.CONNECTED_TX) {
