@@ -208,7 +208,7 @@ public class UE extends LteNode {
 
         time_in_states.put(state, time_in_states.get(state) + LteSimulator.simul_length - last_state_transition_time);
         for (UEState st : UEState.values()) {
-            System.out.format("UE time in state %s: %.9f %n", st, time_in_states.get(st));
+            System.out.format("UE time in state %s: %.9f %.2f %% %n", st, time_in_states.get(st), 100.0 * time_in_states.get(st) / LteSimulator.simul_length);
         }
     }
 
